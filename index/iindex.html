@@ -65,7 +65,8 @@
         var icon_1=[];
         var icon_2=[];
         var icon_3=[];
-
+        var text=[];
+        var i=0;
         var String={
             id:[],
             name:[],
@@ -92,8 +93,7 @@
 
 			group = new THREE.Group();
 			scene.add( group );
-             window.innerWidth=783;
-             window.innerHeight=625;
+
             scene.add( group_1 );
 			// init camera
 			camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -109,36 +109,36 @@
             var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
             var sprite = new THREE.Sprite( spriteMaterial );
             sprite.position.set( 5, 5, 5 );
-            sprite.center.set( 8.9, -3 );
+            sprite.center.set( 8.2, -3 );
             sprite.scale.set(2, 2, 1);
             menu_2.push(sprite);
             group.add( sprite );
-             write("Dhtmlx",55,9,"black");
+             write("Dhtmlx",55,58,"black");
 
             //
              var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_4.png' );
             var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
             var sprite = new THREE.Sprite( spriteMaterial );
             sprite.position.set( 5, 5, 5 );
-            sprite.center.set( 6.45, -1.2 );
+            sprite.center.set( 6, -1.2 );
             sprite.scale.set(3, 3, 1);
             group.add( sprite );
-            write("winrar",99,9,"black");
+            write("winrar",99,50,"black");
             //
             var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_3.png' );
              var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
              var sprite = new THREE.Sprite( spriteMaterial );
              sprite.position.set( 1, 9, 5 );
-             sprite.center.set( 5.16, 0.65 );
+             sprite.center.set( 4.8, 0.65 );
              sprite.scale.set( 3, 3, 3 );
               group.add( sprite );
-              write("words",158,16,"black");
+              write("words",158,50,"black");
              //xp_1
             var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_xp.png' );
             var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
             var sprite = new THREE.Sprite( spriteMaterial );
             sprite.position.set( 3, 5, 5 );
-            sprite.center.set( 6, 3.5 );
+            sprite.center.set( 5.5, 3 );
             sprite.scale.set(3, 3, 1);
             menu_1.push(sprite);
             group_1.add( sprite );
@@ -465,20 +465,27 @@
                 return raycaster.intersectObject( group_1, true );//
 		    }
 		    function write(string,x,y,color){
+
 		       var text2=document.createElement('div');
-                                                text2.style.position='absolute';
-                                                text2.style.width=100;
-                                                text2.style.height=100;
-                                                text2.style.backgroundColor= 0xffffff;
-                                                text2.style.color=color;//"red";
-                                                text2.innerHTML=string;
-                                                text2.style.top=x+'px';
-                                                text2.style.left=y+'px';
-                                                document.body.appendChild(text2);
+                text2.style.position='absolute';
+                 text2.style.width=100;
+                 text2.style.height=100;
+               //   text2.setAttribute("id",i);
+                 text2.style.backgroundColor= 0xffffff;
+                 text2.style.color=color;//"red";
+                 text2.innerHTML=string;
+                 text2.style.top=x+'px';
+                 text2.style.left=y+'px';
+                 document.body.appendChild(text2);
+                    text.push(text2);
+                 console.log(text);
+                delete text[0];
 		    }
-           // fucntion create (String){
-         //
-          //  }
+            function removeElement(elementId) {
+                // Removes an element from the document
+               // var element = document.getElementById(elementId);
+                element.parentNode.removeChild(element);
+            }
 	</script>
 </body>
 </html>
