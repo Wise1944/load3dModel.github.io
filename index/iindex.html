@@ -94,9 +94,9 @@
 			scene.add( group );
 
             scene.add( group_1 );
-            scene.add( group_2 );
 			// init camera
 			camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
+			console.log( window.innerWidth,window.innerHeight);
 			camera.position.set( 15, 15, 15 );
 			camera.lookAt( scene.position );
 

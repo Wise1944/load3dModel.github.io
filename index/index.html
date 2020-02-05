@@ -7,20 +7,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
     <script>
           window.onload = function(){
-           //   window.location.href="iindex.html";
-              window.open("iindex.html");
+
             }
-         //   widows.addEventListener("load",function(){
-         //       var name=document.getElementById("user");
-         //        var password=document.getElementById("password");
-         //        var submit=document.getElementById("submitButton");
-        //         console.log(user);
-       //     })
+
+
+        var String={
+          name:"XXX",
+          password:"XXX"
+          };
        function get(){
-        window.location.href="iindex.html";
-        //  <input type="submit" class="logbtn" value="Login" onclick="get()"/>
-        //window.location.assign("iindex.html");
-       // console.log("hit");
+
+       var name=document.getElementsByName("name")[0].value;
+         var password=document.getElementsByName("password")[0].value;
+      console.log(name);
+      console.log(password);
+
+          if((name==String.name)&&(password==String.password)){
+              window.location.href="iindex.html";
+                }
+
       }
 </script>
   </head>
@@ -30,12 +35,12 @@
         <h1>Login</h1>
 
         <div class="txtb">
-          <input type="text" id="name">
+          <input type="text" id="name" name="name">
           <span data-placeholder="Username"></span>
         </div>
 
         <div class="txtb">
-          <input type="password" id="password">
+          <input type="password" id="password" name="password">
           <span data-placeholder="Password"></span>
         </div>
 
@@ -43,22 +48,9 @@
 
         <input id="btntest" type="button" value="Check" class="logbtn"
         onclick="get()" />
-
       </form>
 
       <script type="text/javascript">
-        var String={
-          name:"XXX",
-          password:"XXX"
-          };
-        var name=document.getElementById("user");
-        var password=document.getElementById("password");
-
-        //submit.addEventListener("click",function(){
-          //var name=document.getElementById("user").value;
-          //var password=document.getElementById("password").value;
-          console.log(name);
-       // });
 
 
 
@@ -70,8 +62,6 @@
         if($(this).val() == "")
         $(this).removeClass("focus");
       });
-
-
       </script>
 
 
