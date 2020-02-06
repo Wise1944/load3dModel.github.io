@@ -49,443 +49,504 @@
 
         <script src="js/build/three.js"></script>
         <script src="js/js/controls/OrbitControls.js"></script>
-        <script src='js/js/libs/dat.gui.min.js'></script>
-<script>
-
-
-
-
-		var renderer, scene, camera;
-		var controls, group,group_1,group_2;
-        var targetList = [];
-        var menu_1=[];
-        var menu_2=[];
-        var menu_3=[];
-
-        var icon_1=[];
-        var icon_2=[];
-        var icon_3=[];
-        var text=[];
-        var i=0;
-        var String={
-            id:[],
-            name:[],
-            number:[]
-            };
-
-
-         group_1 = new THREE.Group();
-
-		init();
-		animate();
-
-		function init() {
 
-			// init renderer
-			renderer = new THREE.WebGLRenderer( { antialias: true } );
-			renderer.setPixelRatio( window.devicePixelRatio );
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
-
-			// init scene
-			scene = new THREE.Scene();
-			scene.background = new THREE.Color( 0xffffff );
-
-			group = new THREE.Group();
-			scene.add( group );
-
-            scene.add( group_1 );
-			// init camera
-			camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
-			console.log( window.innerWidth,window.innerHeight);
-			camera.position.set( 15, 15, 15 );
-			camera.lookAt( scene.position );
-
-			controls = new THREE.OrbitControls( camera, renderer.domElement );
-			controls.enableRotate = true;
-
-			// add sprites
-			 var spriteMap = new THREE.TextureLoader().load( 'textures/ik_1.png' );
-            var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-            var sprite = new THREE.Sprite( spriteMaterial );
-            sprite.position.set( 5, 5, 5 );
-            sprite.center.set( 8.2, -3 );
-            sprite.scale.set(2, 2, 1);
-            menu_2.push(sprite);
-            group.add( sprite );
-             write("Dhtmlx",55,58,"black");
-
-            //
-             var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_4.png' );
-            var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-            var sprite = new THREE.Sprite( spriteMaterial );
-            sprite.position.set( 5, 5, 5 );
-            sprite.center.set( 6, -1.2 );
-            sprite.scale.set(3, 3, 1);
-            group.add( sprite );
-            write("winrar",99,58,"black");
-            //
-            var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_3.png' );
-             var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-             var sprite = new THREE.Sprite( spriteMaterial );
-             sprite.position.set( 1, 9, 5 );
-             sprite.center.set( 4.8, 0.65 );
-             sprite.scale.set( 3, 3, 3 );
-              group.add( sprite );
-              write("words",158,60,"black");
-             //xp_1
-            var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_xp.png' );
-            var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-            var sprite = new THREE.Sprite( spriteMaterial );
-            sprite.position.set( 3, 5, 5 );
-            sprite.center.set( 5.5, 3.2 );
-            sprite.scale.set(3, 3, 1);
-            menu_1.push(sprite);
-            group_1.add( sprite );
-
-              //delet//
-
-              //
-
-
-
-
-			var group2 = new THREE.Object3D();
-			group2.scale.set( 10, 2, 1 );
-			group2.position.set( - 5, 0, 0 );
-			group2.rotation.set( Math.PI / 2, 0, 0 );
-			group.add( group2 );
-
-
-
-			window.addEventListener( 'resize', onWindowResize, false );
-			//window.addEventListener( "mousemove", onDocumentMouseMove, false );
-              document.addEventListener( 'mousedown', onDocumentMouseDown,false );
-		}
-
-		function animate() {
-
-			renderer.render( scene, camera );
-			requestAnimationFrame( animate );
-
-		}
-
-		function onWindowResize() {
-
-			camera.aspect = window.innerWidth / window.innerHeight;
-			camera.updateProjectionMatrix();
-
-			renderer.setSize( window.innerWidth, window.innerHeight );
-
-		}
-
-		var selectedObject = null;
-
-		function onDocumentMouseMove( event ) {
-
-			event.preventDefault();
-			if ( selectedObject ) {
-
-				selectedObject.material.color.set( '#69f' );
-				selectedObject = null;
-
-			}
-
-			var intersects = getIntersects( event.layerX, event.layerY );
-			if ( intersects.length > 0 ) {
-
-				var res = intersects.filter( function ( res ) {
-
-					return res && res.object;
-
-				} )[ 0 ];
-
-				if ( res && res.object ) {
-
-					selectedObject = res.object;
-					selectedObject.material.color.set( '#f00' );
-
-				}
-
-			}
-
-		}
-		        function onDocumentMouseDown( event ){
-
-                                event.preventDefault();
-
-                              	var intersects = getIntersects( event.layerX, event.layerY );
-
-                                   if ( intersects.length > 0 ) {
-
-                                    var res = intersects.filter( function ( res ) {
-
-                                        return res && res.object;
-
-                                    } )[ 0 ];
-
-                                    if ( res && res.object  ){
-
-                                            switch(res.object){
-
-                                                case (menu_1[0]):
-                                                     console.log("menu");
-                                            selectedObject = res.object;
-
-                                         var spriteMap = new THREE.TextureLoader().load( 'textures/XX.png' );
-                                         var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                         var sprite = new THREE.Sprite( spriteMaterial );
-                                         sprite.position.set( -1, -1, 1 );
-                                         //sprite.rotation.y = +10;
-                                         sprite.center.set( 2.5, 0.8 );
-                                         sprite.scale.set( 10, 13, 1 );
-
-                                         menu_1.push(sprite);
-                                         scene.add( menu_1[1] );
-
-                                           var spriteMap = new THREE.TextureLoader().load( 'textures/ik_1.png' );
-                                                var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                var sprite = new THREE.Sprite( spriteMaterial );
-                                                sprite.position.set( 0, 0, 0 );
-                                                sprite.center.set( 12.9,1.5 );
-                                                sprite.scale.set(2, 2, 1);
-                                                    menu_1.push(sprite);
-                                                    scene.add( menu_1[2] );//->menu 2
-                                                    group_1.add( sprite );
-
-                                                    write("Dhtmlx",355,56,"white");//400
-                                                //
-                                                 var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_4.png' );
-                                                var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                var sprite = new THREE.Sprite( spriteMaterial );
-                                                sprite.position.set( 0, 0, 0 );
-                                                sprite.center.set( 9.1,1.7 );
-                                                sprite.scale.set(3, 3, 1);
-                                                 menu_1.push(sprite);
-                                                 scene.add( menu_1[3] );
-                                                 //
-                                                  write("winrar",379,58,"white");
-                                                //
-                                                var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_3.png' );
-                                                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                 var sprite = new THREE.Sprite( spriteMaterial );
-                                                 sprite.position.set( 0, 0, 0 );
-                                                 sprite.center.set( 8.8,1.8 );
-                                                 sprite.scale.set( 3, 3, 1);
-                                                  menu_1.push(sprite);
-                                                    scene.add( menu_1[4]);
-                                                     write("words",403,58,"white");
-                                                  //user
-                                                    var spriteMap = new THREE.TextureLoader().load( 'textures/user_1.png' );
-                                                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                 var sprite = new THREE.Sprite( spriteMaterial );
-                                                 sprite.position.set( 0, 0, 0 );
-                                                 sprite.center.set( 3.57,0.5 );
-                                                 sprite.scale.set( 8, 4, 7);
-                                                  menu_1.push(sprite);
-                                                    scene.add( menu_1[5]);
-                                                    write("User",310,70,"white");
-
-                                                ; break;
-
-                                                case(menu_1[2]): //menu_2
-                                                 scene.remove( menu_1[1] );
-                                                scene.remove( menu_1[2] );//menu_2
-                                                scene.remove( menu_1[3] );
-                                                scene.remove( menu_1[4] );
-                                                scene.remove( menu_1[5] );
-
-
-                                                 var spriteMap = new THREE.TextureLoader().load( 'textures/windows_edit_1.png' );
-                                                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                 var sprite = new THREE.Sprite( spriteMaterial );
-                                                 sprite.position.set( 1, 1, 1 );
-                                                 sprite.center.set( 0.9, 0.5 );
-                                                 sprite.scale.set( 25, 20, 1 );
-
-                                                 menu_2.push(sprite);
-                                                 scene.add( menu_2[1] );
-
-                                                 //button add
-                                                  var spriteMap = new THREE.TextureLoader().load( 'textures/add_add.png' );
-                                                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                 var sprite = new THREE.Sprite( spriteMaterial );
-                                                 sprite.position.set( 1, 1, 1 );
-                                                 sprite.center.set( 5.7, 2 );
-                                                 sprite.scale.set( 3, 3, 1 );
-                                                 menu_2.push(sprite);
-                                                 scene.add( menu_2[2] );
-                                                  group_1.add( sprite );
-                                                  //save
-                                                  var spriteMap = new THREE.TextureLoader().load( 'textures/Edit.png' );
-                                                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                 var sprite = new THREE.Sprite( spriteMaterial );
-                                                 sprite.position.set( 1, 1, 1 );
-                                                 sprite.center.set( 4.5, 1.99 );
-                                                 sprite.scale.set(3, 3, 1 );
-                                                 menu_2.push(sprite);
-                                                 scene.add( menu_2[3] );
-                                                  group.add( sprite );
-                                                  //Edit
-                                                   var spriteMap = new THREE.TextureLoader().load( 'textures/delet.png' );
-                                                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                 var sprite = new THREE.Sprite( spriteMaterial );
-                                                 sprite.position.set( 1, 1, 1 );
-                                                 sprite.center.set( 3.3, 2 );
-                                                 sprite.scale.set(3, 3, 1 );
-                                                 menu_2.push(sprite);
-                                                 scene.add( menu_2[4]);
-                                                  group.add( sprite );
-                                                 //button exit
-                                                 var spriteMap = new THREE.TextureLoader().load( 'textures/Exit.png' );
-                                                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                 var sprite = new THREE.Sprite( spriteMaterial );
-                                                 sprite.position.set( 1, 1, 1 );
-                                                 sprite.center.set( 2.1, 2 );
-                                                 sprite.scale.set(3, 3, 1 );
-                                                 menu_2.push(sprite);
-                                                 scene.add( menu_2[5] );
-                                                  group_1.add( sprite );
-
-
-
-
-
-                                                  //load Text.......create Map!!!!! sort delet.......
-                                                   write("Списко Пользователей",180,340,0xffffff);/// Map id: name :number
-                                                write("№",200,220,0xffffff);write("имя",200,260,0xffffff);write("Телефон",200,370,0xffffff);//static pole
-                                                write("1",230,220,0xffffff);write("Иван Иван",230,260,0xffffff);write("111",230,370);
-                                                write("2",260,220,0xffffff);write("Пертов Петров",260,260,0xffffff);write("222",260,370,0xffffff);
-                                                write("3",290,220,0xffffff);write("Семен Семен",290,260,0xffffff);write("333",290,370,0xffffff);
-                                                 ///writen  massin
-
-
-
-                                                break;
-                                                case(menu_2[2])://new menu_3 no edit
-                                                  //menu
-                                                 var spriteMap = new THREE.TextureLoader().load( 'textures/windows_edit_3.png' );
-                                                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                 var sprite = new THREE.Sprite( spriteMaterial );
-                                                 sprite.position.set( 1, 1, 1 );
-                                                 sprite.center.set( 0.04, 0 );
-                                                 sprite.scale.set( 12, 10, 1 );
-                                                    menu_3.push(sprite);
-                                                 scene.add( menu_3[0] );
-                                                    //button
-                                                 var spriteMap = new THREE.TextureLoader().load( 'textures/add_save.png' );
-                                                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                 var sprite = new THREE.Sprite( spriteMaterial );
-                                                 sprite.position.set( 1, 1, 1 );
-                                                 sprite.center.set( -0.5, 0.15 );
-                                                 sprite.scale.set( 3, 3, 1 );
-                                                    menu_3.push(sprite);
-                                                  scene.add(menu_3[1]);
-                                                  group.add( sprite );
-                                                  //button
-                                                 var spriteMap = new THREE.TextureLoader().load( 'textures/canel.png' );
-                                                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                 var sprite = new THREE.Sprite( spriteMaterial );
-                                                 sprite.position.set( 1, 1, 1 );
-                                                 sprite.center.set( -1.9, 0.15 );
-                                                 sprite.scale.set(3, 3, 1 );
-                                                    menu_3.push(sprite);
-                                                  scene.add(menu_3[2]);
-                                                  group.add( sprite );
-
-                                                     write("Добавить Пользователя",40,750,"black");
-                                                     write("Имя",85,740,"black");
-                                                     write("Телефон",140,740,"black");
-                                                    var input = document.createElement("INPUT") // create a new element
-                                                    input.setAttribute("type","text");
-                                                    input.setAttribute("value","|");
-                                                    input.style.position='absolute';
-                                                     input.style.width=50;
-                                                     input.style.height=50;
-                                                     input.style.top=100+'px';
-                                                     input.style.left=740+'px';
-                                                    document.body.appendChild(input);
-
-                                                    var input = document.createElement("INPUT") // create a new element
-                                                    input.setAttribute("type","text");
-                                                    input.setAttribute("value","|");
-                                                    input.style.position='absolute';
-                                                     input.style.width=50;
-                                                     input.style.height=50;
-                                                     input.style.top=160+'px';
-                                                     input.style.left=740+'px';
-                                                    document.body.appendChild(input);
-
-                                                ; break;
-
-                                                case(menu_2[3]): console.log("X"); break;
-                                                case (menu_3[1]):
-                                                  String.id[0]=1;
-                                                  String.name[0]="Иван Иван";
-                                                     String.number[0]=111;
-
-
-                                                     String.id[1]=2;
-                                                     String.name[1]="Петров Петров";
-                                                     String.number[1]=856788;
-
-                                                      String.id[2]=3;
-                                                     String.name[2]="Семен Семен";
-                                                     String.number[2]=878;
-
-                                                      String.id[3]=4;
-                                                     String.name[3]="Вася Васи";
-                                                     String.number[3]=88888;
-
-                                                     for(var i=0;i<3;i++){
-                                                       for (var value of Object.values(String) ){
-                                                                console.log(value);
-                                                            }
-                                                        }
-
-                                                case (menu_3[2]): console.log("exit"); break;
-                                            }
-                                    }
-
-                                }
-                                animate();
-                            }
-
-            var raycaster = new THREE.Raycaster();
-            var mouseVector = new THREE.Vector3();
-
-            function getIntersects( x, y ) {
-
-                x = ( x / window.innerWidth ) * 2 - 1;
-                y = - ( y / window.innerHeight ) * 2 + 1;
-
-                mouseVector.set( x, y, 0.5 );
-                raycaster.setFromCamera( mouseVector, camera );
-
-                return raycaster.intersectObject( group_1, true );//
-		    }
-		    function write(string,x,y,color){
-
-		       var text2=document.createElement('div');
-                text2.style.position='absolute';
-                 text2.style.width=100;
-                 text2.style.height=100;
-               //   text2.setAttribute("id",i);
-                 text2.style.backgroundColor= 0xffffff;
-                 text2.style.color=color;//"red";
-                 text2.innerHTML=string;
-                 text2.style.top=x+'px';
-                 text2.style.left=y+'px';
-                 document.body.appendChild(text2);
-                    text.push(text2);
-                 console.log(text);
-                delete text[0];
-		    }
-            function removeElement(elementId) {
-                // Removes an element from the document
-               // var element = document.getElementById(elementId);
-                element.parentNode.removeChild(element);
+        <script src="js/Text2D.js"></script>
+    <script>
+
+            var text = "Jinnnee",
+
+                    height = 20,
+                    size = 70,
+                    hover = 30,
+
+                    curveSegments = 4,
+
+                    bevelThickness = 2,
+                    bevelSize = 1.5,
+                    bevelEnabled = true,
+
+                    font = undefined,
+
+                    fontName = "optimer", // helvetiker, optimer, gentilis, droid sans, droid serif
+                    fontWeight = "bold";
+
+            var renderer, scene, camera;
+            var controls, group,group_1,group_2;
+            var targetList = [];
+            var menu_1=[];
+            var menu_2=[];
+            var menu_3=[];
+
+            var icon_1=[];
+            var icon_2=[];
+            var icon_3=[];
+            var text=[];
+            var texts;
+            var i=0;
+            var String={
+                id:[],
+                name:[],
+                number:[]
+                };
+
+
+             group_1 = new THREE.Group();
+
+            init();
+            animate();
+
+            function init() {
+
+                // init renderer
+                renderer = new THREE.WebGLRenderer( { antialias: true } );
+                renderer.setPixelRatio( window.devicePixelRatio );
+                renderer.setSize( window.innerWidth, window.innerHeight );
+                document.body.appendChild( renderer.domElement );
+
+                // init scene
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color( 0xffffff );
+
+                group = new THREE.Group();
+                scene.add( group );
+
+                scene.add( group_1 );
+                // init camera
+                camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
+                console.log( window.innerWidth,window.innerHeight);
+                camera.position.set( 15, 15, 15 );
+                camera.lookAt( scene.position );
+
+                controls = new THREE.OrbitControls( camera, renderer.domElement );
+                controls.enableRotate = true;
+
+                // add sprites
+                 var spriteMap = new THREE.TextureLoader().load( 'textures/ik_1.png' );
+                var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                var sprite = new THREE.Sprite( spriteMaterial );
+                sprite.position.set( 5, 5, 5 );
+                sprite.center.set( 8.2, -3 );
+                sprite.scale.set(2, 2, 1);
+                menu_2.push(sprite);
+                group.add( sprite );
+                 write("Dhtmlx",55,58,"black");
+
+
+
+                //
+               //
+
+                 var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_4.png' );
+                var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                var sprite = new THREE.Sprite( spriteMaterial );
+                sprite.position.set( 5, 5, 5 );
+                sprite.center.set( 6, -1.2 );
+                sprite.scale.set(3, 3, 1);
+                group.add( sprite );
+                write("winrar",99,58,"black");
+                //
+                var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_3.png' );
+                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                 var sprite = new THREE.Sprite( spriteMaterial );
+                 sprite.position.set( 1, 9, 5 );
+                 sprite.center.set( 4.8, 0.65 );
+                 sprite.scale.set( 3, 3, 3 );
+                  group.add( sprite );
+                  write("words",158,60,"black");
+                 //xp_1
+                var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_xp.png' );
+                var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                var sprite = new THREE.Sprite( spriteMaterial );
+                sprite.position.set( 3, 5, 5 );
+                sprite.center.set( 5.5, 3.2 );
+                sprite.scale.set(3, 3, 1);
+                menu_1.push(sprite);
+                group_1.add( sprite );
+                  write("Вот и вы на новой странице,  вам нужно нажать на "+
+                  "окно windows что бы открылос меню и там нажать на ярлык Dhtmlx",450,390,"black");
+                var group2 = new THREE.Object3D();
+                group2.scale.set( 10, 2, 1 );
+                group2.position.set( - 5, 0, 0 );
+                group2.rotation.set( Math.PI / 2, 0, 0 );
+                group.add( group2 );
+
+
+
+                window.addEventListener( 'resize', onWindowResize, false );
+                //window.addEventListener( "mousemove", onDocumentMouseMove, false );
+                  document.addEventListener( 'mousedown', onDocumentMouseDown,false );
             }
-	</script>
+
+            function animate() {
+
+                renderer.render( scene, camera );
+                requestAnimationFrame( animate );
+
+            }
+
+            function onWindowResize() {
+
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize( window.innerWidth, window.innerHeight );
+
+            }
+
+            var selectedObject = null;
+
+            function onDocumentMouseMove( event ) {
+
+                event.preventDefault();
+                if ( selectedObject ) {
+
+                    selectedObject.material.color.set( '#69f' );
+                    selectedObject = null;
+
+                }
+
+                var intersects = getIntersects( event.layerX, event.layerY );
+                if ( intersects.length > 0 ) {
+
+                    var res = intersects.filter( function ( res ) {
+
+                        return res && res.object;
+
+                    } )[ 0 ];
+
+                    if ( res && res.object ) {
+
+                        selectedObject = res.object;
+                        selectedObject.material.color.set( '#f00' );
+
+                    }
+
+                }
+
+            }
+                    function onDocumentMouseDown( event ){
+
+                                    event.preventDefault();
+
+                                    var intersects = getIntersects( event.layerX, event.layerY );
+
+                                       if ( intersects.length > 0 ) {
+
+                                        var res = intersects.filter( function ( res ) {
+
+                                            return res && res.object;
+
+                                        } )[ 0 ];
+
+                                        if ( res && res.object  ){
+
+                                                switch(res.object){
+
+                                                    case (menu_1[0]):
+                                                         console.log("menu");
+                                                selectedObject = res.object;
+
+                                             var spriteMap = new THREE.TextureLoader().load( 'textures/XX.png' );
+                                             var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                             var sprite = new THREE.Sprite( spriteMaterial );
+                                             sprite.position.set( -1, -1, 1 );
+                                             //sprite.rotation.y = +10;
+                                             sprite.center.set( 2.3, 0.77 );
+                                             sprite.scale.set( 10, 13, 1 );
+
+                                             menu_1.push(sprite);
+                                             scene.add( menu_1[1] );
+
+                                               var spriteMap = new THREE.TextureLoader().load( 'textures/ik_1.png' );
+                                                    var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                    var sprite = new THREE.Sprite( spriteMaterial );
+                                                    sprite.position.set( 0, 0, 0 );
+                                                    sprite.center.set( 12.1,1.5 );
+                                                    sprite.scale.set(2, 2, 1);
+                                                        menu_1.push(sprite);
+                                                        scene.add( menu_1[2] );//->menu 2
+                                                        group_1.add( sprite );
+
+                                                        write("Dhtmlx",355,95,"white");//400
+                                                    //
+                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_4.png' );
+                                                    var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                    var sprite = new THREE.Sprite( spriteMaterial );
+                                                    sprite.position.set( 0, 0, 0 );
+                                                    sprite.center.set( 8.62,1.7 );
+                                                    sprite.scale.set(3, 3, 1);
+                                                     menu_1.push(sprite);
+                                                     scene.add( menu_1[3] );
+                                                     //
+                                                      write("winrar",379,95,"white");
+                                                    //
+                                                    var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_3.png' );
+                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                     var sprite = new THREE.Sprite( spriteMaterial );
+                                                     sprite.position.set( 0, 0, 0 );
+                                                     sprite.center.set( 8.3,1.8 );
+                                                     sprite.scale.set( 3, 3, 1);
+                                                      menu_1.push(sprite);
+                                                        scene.add( menu_1[4]);
+                                                         write("words",403,95,"white");
+                                                      //user
+                                                        var spriteMap = new THREE.TextureLoader().load( 'textures/user_1.png' );
+                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                     var sprite = new THREE.Sprite( spriteMaterial );
+                                                     sprite.position.set( 0, 0, 0 );
+                                                     sprite.center.set( 3.35,0.5 );
+                                                     sprite.scale.set( 8, 4, 7);
+                                                      menu_1.push(sprite);
+                                                        scene.add( menu_1[5]);
+                                                        write("User",310,120,"white");
+
+                                                    ; break;
+
+                                                    case(menu_1[2]): //menu_2
+                                                     scene.remove( menu_1[1] );
+                                                    scene.remove( menu_1[2] );
+                                                    console.log(menu_1[2]);
+                                                    delete menu_1[2];
+                                                    console.log(menu_1[2]);
+                                                 //   scene.remove( menu_1[2] );
+                                                    scene.remove( menu_1[3] );
+                                                    scene.remove( menu_1[4] );
+                                                    scene.remove( menu_1[5] );
+                                                     text[3].style.color="white";
+                                                         write("Вам нужно нажать кнопку Добавить ,что бы появилось новое меню ",490,390,"black");
+
+                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/windows_edit_1.png' );
+                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                     var sprite = new THREE.Sprite( spriteMaterial );
+                                                     sprite.position.set( 1, 1, 1 );
+                                                     sprite.center.set( 0.9, 0.5 );
+                                                     sprite.scale.set( 25, 20, 1 );
+
+                                                     menu_2.push(sprite);
+                                                     scene.add( menu_2[1] );
+
+                                                     //button add
+                                                      var spriteMap = new THREE.TextureLoader().load( 'textures/add_add.png' );
+                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                     var sprite = new THREE.Sprite( spriteMaterial );
+                                                     sprite.position.set( 1, 1, 1 );
+                                                     sprite.center.set( 5.7, 2 );
+                                                     sprite.scale.set( 3, 3, 1 );
+                                                     menu_2.push(sprite);
+                                                     scene.add( menu_2[2] );
+                                                      group_1.add( sprite );
+                                                      //save
+                                                      var spriteMap = new THREE.TextureLoader().load( 'textures/Edit.png' );
+                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                     var sprite = new THREE.Sprite( spriteMaterial );
+                                                     sprite.position.set( 1, 1, 1 );
+                                                     sprite.center.set( 4.5, 1.99 );
+                                                     sprite.scale.set(3, 3, 1 );
+                                                     menu_2.push(sprite);
+                                                     scene.add( menu_2[3] );
+                                                      group.add( sprite );
+                                                      //Edit
+                                                       var spriteMap = new THREE.TextureLoader().load( 'textures/delet.png' );
+                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                     var sprite = new THREE.Sprite( spriteMaterial );
+                                                     sprite.position.set( 1, 1, 1 );
+                                                     sprite.center.set( 3.3, 2 );
+                                                     sprite.scale.set(3, 3, 1 );
+                                                     menu_2.push(sprite);
+                                                     scene.add( menu_2[4]);
+                                                      group.add( sprite );
+                                                     //button exit
+                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/Exit.png' );
+                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                     var sprite = new THREE.Sprite( spriteMaterial );
+                                                     sprite.position.set( 1, 1, 1 );
+                                                     sprite.center.set( 2.1, 2 );
+                                                     sprite.scale.set(3, 3, 1 );
+                                                     menu_2.push(sprite);
+                                                     scene.add( menu_2[5] );
+                                                      group_1.add( sprite );
+
+
+
+
+
+                                                      //load Text.......create Map!!!!! sort delet.......
+                                                       write("Списко Пользователей",180,340,0xffffff);/// Map id: name :number
+                                                    write("№",200,220,0xffffff);write("имя",200,260,0xffffff);write("Телефон",200,370,0xffffff);//static pole
+                                                    write("1",230,220,0xffffff);write("Иван Иван",230,260,0xffffff);write("111",230,370);
+                                                    write("2",260,220,0xffffff);write("Пертов Петров",260,260,0xffffff);write("222",260,370,0xffffff);
+                                                    write("3",290,220,0xffffff);write("Семен Семен",290,260,0xffffff);write("333",290,370,0xffffff);
+                                                     ///writen  massin
+
+
+
+                                                    break;
+                                                    case(menu_2[2])://new menu_3 no edit
+                                                      //menu
+                                                      text[8].style.color="white";
+                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/windows_edit_3.png' );
+                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                     var sprite = new THREE.Sprite( spriteMaterial );
+                                                     sprite.position.set( 1, 1, 1 );
+                                                     sprite.center.set( 0.04, 0 );
+                                                     sprite.scale.set( 12, 10, 1 );
+                                                        menu_3.push(sprite);
+                                                     scene.add( menu_3[0] );
+                                                        //button
+                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/add_save.png' );
+                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                     var sprite = new THREE.Sprite( spriteMaterial );
+                                                     sprite.position.set( 1, 1, 1 );
+                                                     sprite.center.set( -0.5, 0.15 );
+                                                     sprite.scale.set( 3, 3, 1 );
+                                                        menu_3.push(sprite);
+                                                      scene.add(menu_3[1]);
+                                                      group.add( sprite );
+                                                      //button
+                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/canel.png' );
+                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+                                                     var sprite = new THREE.Sprite( spriteMaterial );
+                                                     sprite.position.set( 1, 1, 1 );
+                                                     sprite.center.set( -1.9, 0.15 );
+                                                     sprite.scale.set(3, 3, 1 );
+                                                        menu_3.push(sprite);
+                                                      scene.add(menu_3[2]);
+                                                      group.add( sprite );
+
+                                                         write("Добавить Пользователя",40,750,"black");
+                                                         write("Имя",85,740,"black");
+                                                         write("Телефон",140,740,"black");
+                                                        var input = document.createElement("INPUT") // create a new element
+                                                        input.setAttribute("type","text");
+                                                        input.setAttribute("value","|");
+                                                        input.style.position='absolute';
+                                                         input.style.width=50;
+                                                         input.style.height=50;
+                                                         input.style.top=100+'px';
+                                                         input.style.left=740+'px';
+                                                        document.body.appendChild(input);
+
+                                                        var input = document.createElement("INPUT") // create a new element
+                                                        input.setAttribute("type","text");
+                                                        input.setAttribute("value","|");
+                                                        input.style.position='absolute';
+                                                         input.style.width=50;
+                                                         input.style.height=50;
+                                                         input.style.top=160+'px';
+                                                         input.style.left=740+'px';
+                                                        document.body.appendChild(input);
+
+                                                    ; break;
+
+                                                    case(menu_2[3]): console.log("X"); break;
+                                                    case (menu_3[1]):
+                                                      String.id[0]=1;
+                                                      String.name[0]="Иван Иван";
+                                                         String.number[0]=111;
+
+
+                                                         String.id[1]=2;
+                                                         String.name[1]="Петров Петров";
+                                                         String.number[1]=856788;
+
+                                                          String.id[2]=3;
+                                                         String.name[2]="Семен Семен";
+                                                         String.number[2]=878;
+
+                                                          String.id[3]=4;
+                                                         String.name[3]="Вася Васи";
+                                                         String.number[3]=88888;
+
+                                                         for(var i=0;i<3;i++){
+                                                           for (var value of Object.values(String) ){
+                                                                    console.log(value);
+                                                                }
+                                                            }
+
+                                                    case (menu_3[2]): console.log("exit"); break;
+                                                }
+                                        }
+
+                                    }
+                                    animate();
+                                }
+
+                var raycaster = new THREE.Raycaster();
+                var mouseVector = new THREE.Vector3();
+
+                function getIntersects( x, y ) {
+
+                    x = ( x / window.innerWidth ) * 2 - 1;
+                    y = - ( y / window.innerHeight ) * 2 + 1;
+
+                    mouseVector.set( x, y, 0.5 );
+                    raycaster.setFromCamera( mouseVector, camera );
+
+                    return raycaster.intersectObject( group_1, true );//
+                }
+                function write(string,x,y,color){
+                    i++;
+                   var text2=document.createElement('div');
+                    text2.style.position='absolute';
+                     text2.style.width=100;
+                     text2.style.height=100;
+                      text2.setAttribute("id","list"+i);
+                     text2.style.backgroundColor= 0xffffff;
+                     text2.style.color=color;//"red";
+                     text2.innerHTML=string;
+                     text2.style.top=x+'px';
+                     text2.style.left=y+'px';
+                     document.body.appendChild(text2);
+                        text.push(text2);
+                     console.log(text);
+                  // removedElement(text[1]);
+                }
+                function makeTextSprite(message,parameters){
+                    if(parameters==undefined) parameters={};
+
+                    var fontface=parameters.hasOwnProperty("fontface") ? parameters["fontface"]:"Arial";
+                    var fontsize=parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] :18;
+                    var borderThickness=parameters.hasOwnProperty("borderThickness") ? parameters["borderThickness"] :4;
+                    var borderColor=parameters.hasOwnProperty("borderColor") ? parameters["borderColor"] :{r:0,g:0,b:0,a:1.0};
+                    var backgroundColor=parameters.hasOwnProperty("backgroundColor") ? parameters["backgroundColor"] :{r:255,g:255,b:255,a:1.0};
+                    var textColor=parameters.hasOwnProperty("textColor") ? parameters["textColor"] :{r:0,g:0,b:0,a:1.0};
+
+                    var canvas=document.createElement('canvas');
+                    var context=canvas.getContext('2d');
+                    context.font="Bold " +fontsize + "px " +fontface;
+                    var metrics=context.measureText(message);
+                    var textWidth=metrics.width;
+
+                    context.fillStyle ="rgba("+backgroundColor.r +"," +backgroundColor.g +"," +backgroundColor.b +"," +backgroundColor.a +")";
+                    context.strokeStyle="rgba(" +borderColor.r + "," +borderColor.g + "," + borderColor.b + "," +borderColor.r + ")";
+
+                    context.lineWidth=borderThickness;
+                    roundRect(context,borderThickness/2,borderThickness/2,(textWidth +borderThickness )*1.1,fontsize *1.4+ borderThickness,8);
+
+                    context.fillStyle="rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+                    context.strokeStyle="rgba(" + borderColor.r + ","+ borderColor.g + ","+ borderColor.b + ","+ borderColor.a + ")" ;
+
+                    context.lineWidth=borderThickness;
+                    roundRect(context,borderThickness/2,borderThickness/2,(textWidth + borderThickness)*1.1,fontsize *1.4 +borderThickness, 8);
+
+                    context.fillStyle="rgba(" + textColor.r +","+ textColor.g +","+ textColor.b +",1.0)";
+                    context.filleText(message,borderThickness,fontsize +borderThickness);
+
+                    var texture =new THREE.Texture(canvas);
+                    texture.needsUpdate=true;
+
+                    var spriteMaterial=new THREE.SpriteMaterial({map:texture,useScreenCoordinates:false});
+                    var sprite =new THREE.Sprite(spriteMaterial);
+                    sprite.scale.set(0.5*fontsize,0.25*fontsize,0.75 * fontsize);
+
+                    return sprite;
+                }
+                function removeElement(elementId) {
+                    // Removes an element from the document
+                    var element = document.getElementById(elementId);
+                    element.parentNode.removeChild(element);
+                }
+
+        </script>
 </body>
 </html>

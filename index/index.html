@@ -9,18 +9,13 @@
           window.onload = function(){
 
             }
-
-
         var String={
           name:"XXX",
           password:"XXX"
           };
        function get(){
-
        var name=document.getElementsByName("name")[0].value;
          var password=document.getElementsByName("password")[0].value;
-      console.log(name);
-      console.log(password);
 
           if((name==String.name)&&(password==String.password)){
               window.location.href="iindex.html";
@@ -48,12 +43,14 @@
 
         <input id="btntest" type="button" value="Check" class="logbtn"
         onclick="get()" />
+        <div class="bottom-text">
+          Привествую вас, вам надо ввести логи и пароль правильно,что бы перейти на следующи страницу.(Login XXX,Password XXX),
+          Нажать кнопку)
+        </div>
+
       </form>
 
       <script type="text/javascript">
-
-
-
       $(".txtb input").on("focus",function(){
         $(this).addClass("focus");
       });
@@ -62,8 +59,7 @@
         if($(this).val() == "")
         $(this).removeClass("focus");
       });
+
       </script>
-
-
   </body>
 </html>
