@@ -1,27 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>menu</title>
+    <title>windows</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style>
 			body {
-				font-family: Monospace;
-				font-size: 13px;
-				text-align: center;
-
-				margin: 0px;
-				background-color: #fff;
-				overflow: hidden;
-			}
-
-			#info{
-				position: absolute;
-				z-index: 1;
-				width: 100%;
-				padding: 5px;
-				text-align: center;
+				padding:0;
+				margin:0;
+				font-weight: bold;
+				overflow:hidden;
 			}
 		</style>
     <script>
@@ -45,34 +33,22 @@
                 }
     </script>
 </head>
+
 <body>
+<script src="js/build/three.js"></script>
 
-        <script src="js/build/three.js"></script>
-        <script src="js/js/controls/OrbitControls.js"></script>
+<script>
 
-        <script src="js/Text2D.js"></script>
-    <script>
+			var camera, scene, renderer;
+			var cameraOrtho, sceneOrtho;
+            var sprite;
+			var spriteTL, spriteTR, spriteBL, spriteBR, spriteC;
+            var i=0;
+            var text=[];
+			var mapC;
 
-            var text = "Jinnnee",
+		    var group,group_1s;
 
-                    height = 20,
-                    size = 70,
-                    hover = 30,
-
-                    curveSegments = 4,
-
-                    bevelThickness = 2,
-                    bevelSize = 1.5,
-                    bevelEnabled = true,
-
-                    font = undefined,
-
-                    fontName = "optimer", // helvetiker, optimer, gentilis, droid sans, droid serif
-                    fontWeight = "bold";
-
-            var renderer, scene, camera;
-            var controls, group,group_1,group_2;
-            var targetList = [];
             var menu_1=[];
             var menu_2=[];
             var menu_3=[];
@@ -83,148 +59,399 @@
             var text=[];
             var texts;
             var i=0;
-            var String={
-                id:[],
-                name:[],
-                number:[]
-                };
+              group_1 = new THREE.Group();
+			init();
+			animate();
+           //click object
+			function init() {
 
+				var width = window.innerWidth;
+				var height = window.innerHeight;
+                console.log(width);
+                console.log(height);
+				camera = new THREE.PerspectiveCamera( 60, width / height, 1, 2100 );
+				camera.position.z = 1500;
 
-             group_1 = new THREE.Group();
+				cameraOrtho = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 1, 10 );
+				cameraOrtho.position.z = 10;
 
-            init();
-            animate();
-
-            function init() {
-
-                // init renderer
-                renderer = new THREE.WebGLRenderer( { antialias: true } );
-                renderer.setPixelRatio( window.devicePixelRatio );
-                renderer.setSize( window.innerWidth, window.innerHeight );
-                document.body.appendChild( renderer.domElement );
-
-                // init scene
-                scene = new THREE.Scene();
+				scene = new THREE.Scene();
+				scene.fog = new THREE.Fog( 0x000000, 1500, 2100 );
                 scene.background = new THREE.Color( 0xffffff );
 
-                group = new THREE.Group();
-                scene.add( group );
-
-                scene.add( group_1 );
-                // init camera
-                camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
-                console.log( window.innerWidth,window.innerHeight);
-                camera.position.set( 15, 15, 15 );
-                camera.lookAt( scene.position );
-
-                controls = new THREE.OrbitControls( camera, renderer.domElement );
-                controls.enableRotate = true;
-
-                // add sprites
-                 var spriteMap = new THREE.TextureLoader().load( 'textures/ik_1.png' );
-                var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                var sprite = new THREE.Sprite( spriteMaterial );
-                sprite.position.set( 5, 5, 5 );
-                sprite.center.set( 8.2, -3 );
-                sprite.scale.set(2, 2, 1);
-                menu_2.push(sprite);
-                group.add( sprite );
-                 write("Dhtmlx",55,58,"black");
+				sceneOrtho = new THREE.Scene();
+                 group_1 = new THREE.Group();
+                  group = new THREE.Group();
+				// create sprites
+                scene.add(group_1);
 
 
+				var amount = 200;
+				var radius = 500;
 
-                //
-               //
+				var textureLoader = new THREE.TextureLoader();
+                //text .......
+                write("Вот и вы на новой странице,  вам нужно нажать на "+
+                  "окно windows что бы открылос меню и там нажать на ярлык Dhtmlx",550,300,"black");
 
-                 var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_4.png' );
-                var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                var sprite = new THREE.Sprite( spriteMaterial );
-                sprite.position.set( 5, 5, 5 );
-                sprite.center.set( 6, -1.2 );
-                sprite.scale.set(3, 3, 1);
-                group.add( sprite );
-                write("winrar",99,58,"black");
-                //
-                var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_3.png' );
-                 var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                 var sprite = new THREE.Sprite( spriteMaterial );
-                 sprite.position.set( 1, 9, 5 );
-                 sprite.center.set( 4.8, 0.65 );
-                 sprite.scale.set( 3, 3, 3 );
-                  group.add( sprite );
-                  write("words",158,60,"black");
-                 //xp_1
-                var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_xp.png' );
-                var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                var sprite = new THREE.Sprite( spriteMaterial );
-                sprite.position.set( 3, 5, 5 );
-                sprite.center.set( 5.5, 3.2 );
-                sprite.scale.set(3, 3, 1);
-                menu_1.push(sprite);
-                group_1.add( sprite );
-                  write("Вот и вы на новой странице,  вам нужно нажать на "+
-                  "окно windows что бы открылос меню и там нажать на ярлык Dhtmlx",450,390,"black");
-                var group2 = new THREE.Object3D();
-                group2.scale.set( 10, 2, 1 );
-                group2.position.set( - 5, 0, 0 );
-                group2.rotation.set( Math.PI / 2, 0, 0 );
-                group.add( group2 );
+
+                //ik
+                textureLoader.load("textures/ik_1.png",createSpriteTL);
+                //text
+                 write("Dhtmlx",84,30,"black");
+                //winr
+                 textureLoader.load("textures/sprite0_4.png",createSpriteTLW);
+                 write("winrar",163,30,"black");
+                 textureLoader.load("textures/sprite0_3.png",createSpriteTLWor);
+                 write("word",239,30,"black");
+                //xp
+                 textureLoader.load("textures/sprite0_xp.png",createSpriteXP);
+                //menu_1
+                textureLoader.load( "textures/XX.png", sprite_menu_1);
+                textureLoader.load( "textures/ik_1.png", menu_ik);
+                textureLoader.load( "textures/sprite0_4.png", menu_winr);
+                textureLoader.load( "textures/sprite0_3.png", menu_word);
+                textureLoader.load( "textures/user_1.png", menu_user);
+
+                //menu_2
+                textureLoader.load( "textures/windows_edit_1.png", sprite_menu_2);
+                textureLoader.load( "textures/add_add.png", menu_2_add);
+                textureLoader.load( "textures/Edit.png", menu_2_edit);
+                textureLoader.load( "textures/delet.png", menu_2_delet);
+                textureLoader.load( "textures/Exit.png", menu_2_Exit);
+                //menu_3
+                textureLoader.load( "textures/windows_edit_3.png", menu3);
+                textureLoader.load( "textures/add_save.png", menu3add);
+                textureLoader.load( "textures/canel.png", menu3canel);
 
 
 
-                window.addEventListener( 'resize', onWindowResize, false );
-                //window.addEventListener( "mousemove", onDocumentMouseMove, false );
-                  document.addEventListener( 'mousedown', onDocumentMouseDown,false );
-            }
 
-            function animate() {
 
-                renderer.render( scene, camera );
-                requestAnimationFrame( animate );
 
-            }
+				// renderer
 
-            function onWindowResize() {
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.autoClear = false; // To allow render overlay on top of sprited sphere
 
-                camera.aspect = window.innerWidth / window.innerHeight;
+				document.body.appendChild( renderer.domElement );
+
+				//
+                document.addEventListener( 'mousedown', onDocumentMouseDown,false );
+				window.addEventListener( 'resize', onWindowResize, false );
+                window.addEventListener('resize',rise);
+			}
+			function rise(){
+                camera.aspect=window.innerWidth/window.innerHeight;
                 camera.updateProjectionMatrix();
-
-                renderer.setSize( window.innerWidth, window.innerHeight );
-
+                renderer.setSize(window.innerWidth,window.innerHeight);
             }
 
-            var selectedObject = null;
 
-            function onDocumentMouseMove( event ) {
+            function createSpriteTL( texture ) {
+            	var material = new THREE.SpriteMaterial( { map: texture } );
 
-                event.preventDefault();
-                if ( selectedObject ) {
+				var width = material.map.image.width;
+				var height = material.map.image.height;
 
-                    selectedObject.material.color.set( '#69f' );
-                    selectedObject = null;
-
-                }
-
-                var intersects = getIntersects( event.layerX, event.layerY );
-                if ( intersects.length > 0 ) {
-
-                    var res = intersects.filter( function ( res ) {
-
-                        return res && res.object;
-
-                    } )[ 0 ];
-
-                    if ( res && res.object ) {
-
-                        selectedObject = res.object;
-                        selectedObject.material.color.set( '#f00' );
-
-                    }
-
-                }
+				spriteTL = new THREE.Sprite( material );
+				spriteTL.center.set( 0.0, 1.0 );
+				spriteTL.scale.set( width, height, 1 );
+				sceneOrtho.add( spriteTL );
+				updateHUDSpriteTL();
 
             }
-                    function onDocumentMouseDown( event ){
+            function createSpriteXP( texture ) {
+            	var material = new THREE.SpriteMaterial( { map: texture } );
+
+				var width = material.map.image.width;
+				var height = material.map.image.height;
+                spriteBL = new THREE.Sprite( material );
+				spriteBL.center.set( 3.1, 1.5 );//*
+				spriteBL.scale.set( width*3, height*3, 1 );//*
+				sceneOrtho.add( spriteBL );// see
+
+				menu_1.push(spriteBL);
+                group_1.add(spriteBL);
+                updateHUDSpriteXP();
+            }
+
+                   function createSpriteTLW( texture ) {
+                            var material = new THREE.SpriteMaterial( { map: texture } );
+
+                            var width = material.map.image.width;
+                            var height = material.map.image.height;
+
+                            spriteTL = new THREE.Sprite( material );
+                            spriteTL.center.set( 0.4,1.9 );
+                            spriteTL.scale.set( width, height, 1 );
+                            sceneOrtho.add( spriteTL );
+                          updateHUDSpriteTL();
+
+                        }
+                        function createSpriteTLWor( texture ) {
+                            var material = new THREE.SpriteMaterial( { map: texture } );
+
+                            var width = material.map.image.width;
+                            var height = material.map.image.height;
+
+                            spriteTL = new THREE.Sprite( material );
+                            spriteTL.center.set( 0.1,2.2 );
+                            spriteTL.scale.set( width, height, 1 );
+                            sceneOrtho.add( spriteTL );
+                          updateHUDSpriteTL();
+
+                        }
+                        function sprite_menu_1( texture ) {//menu_1
+                        var material = new THREE.SpriteMaterial( { map: texture } );
+
+                            var width = material.map.image.width;
+                            var height = material.map.image.height;
+                            spriteBL = new THREE.Sprite( material );
+                            spriteBL.center.set( 2, 0.49 );//*
+                            spriteBL.scale.set( width*1, height*1.5, 1 );//*
+                           // sceneOrtho.add( spriteBL );// see
+
+                            menu_1.push(spriteBL);
+
+                            updateHUDSpriteXP();
+                           }
+                             function  menu_ik( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+
+                            var width = material.map.image.width;
+                            var height = material.map.image.height;
+                            spriteBL = new THREE.Sprite( material );
+                            spriteBL.center.set( 4.48, 0.7 );//*
+                            spriteBL.scale.set( width*2, height*2, 1 );//*
+                           // sceneOrtho.add( spriteBL );// see
+                            console.log(menu_1);
+                            menu_1.push(spriteBL);
+                            //group_1.add(spriteBL);
+                            updateHUDSpriteXP();
+                           }
+                           function  menu_winr( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+
+                            var width = material.map.image.width;
+                            var height = material.map.image.height;
+                            spriteBL = new THREE.Sprite( material );
+                             spriteBL.center.set( 4.9, 0.2 );//*
+                            spriteBL.scale.set( width*2, height*2, 1 );//*
+                           // sceneOrtho.add( spriteBL );// see
+
+                            menu_1.push(spriteBL);
+
+                            updateHUDSpriteXP();
+                           }
+
+                           function  menu_word( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+
+                            var width = material.map.image.width;
+                            var height = material.map.image.height;
+                            spriteBL = new THREE.Sprite( material );
+                             spriteBL.center.set( 4.55, 0.3 );//*
+                            spriteBL.scale.set( width*2, height*2, 1 );//*
+                           // sceneOrtho.add( spriteBL );// see
+
+                            menu_1.push(spriteBL);
+
+                            updateHUDSpriteXP();
+                           }
+                           function  menu_user( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+                            var width = material.map.image.width;
+                            var height = material.map.image.height;
+                            spriteBL = new THREE.Sprite( material );
+                             spriteBL.center.set( 1.65, -0.2 );//*
+                            spriteBL.scale.set( width*1, height*1, 1 );//*
+                           // sceneOrtho.add( spriteBL );// see
+
+                            menu_1.push(spriteBL);
+
+                            updateHUDSpriteXP();
+                           }
+                           //menu_2
+                           function  sprite_menu_2( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+
+                                var width = material.map.image.width;
+                                var height = material.map.image.height;
+
+                                spriteC = new THREE.Sprite( material );
+                                spriteC.center.set( +0.5, +0.5);
+                                spriteC.scale.set( width*2, height*2, 1 );
+                               // sceneOrtho.add( spriteC );
+                                menu_2.push(spriteC);
+                                updateHUDSpritesC();
+
+                           }
+                           function  menu_2_add( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+
+                                var width = material.map.image.width;
+                                var height = material.map.image.height;
+
+                                spriteC = new THREE.Sprite( material );
+                                spriteC.center.set( +3, +1.9);
+                                spriteC.scale.set( width*2, height*2, 1 );
+                               // sceneOrtho.add( spriteC );
+                                menu_2.push(spriteC);
+                                updateHUDSpritesC();
+
+                           }
+                           function  menu_2_edit( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+
+                                var width = material.map.image.width;
+                                var height = material.map.image.height;
+
+                                spriteC = new THREE.Sprite( material );
+                                 spriteC.center.set( +1.6, +1.85);
+                                spriteC.scale.set( width*2, height*2, 1 );
+                               // sceneOrtho.add( spriteC );
+                                menu_2.push(spriteC);
+                                updateHUDSpritesC();
+
+                           }
+                           function  menu_2_delet( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+
+                                var width = material.map.image.width;
+                                var height = material.map.image.height;
+
+                                spriteC = new THREE.Sprite( material );
+                                  spriteC.center.set( +0.1, +1.85);
+
+                                spriteC.scale.set( width*2, height*2, 1 );
+                               // sceneOrtho.add( spriteC );
+                                menu_2.push(spriteC);
+                                updateHUDSpritesC();
+
+                           }
+                            function  menu_2_Exit( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+
+                                var width = material.map.image.width;
+                                var height = material.map.image.height;
+
+                                spriteC = new THREE.Sprite( material );
+                                  spriteC.center.set( -1.8, +1.85);
+
+                                spriteC.scale.set( width*2, height*2, 1 );
+                               // sceneOrtho.add( spriteC );
+                                menu_2.push(spriteC);
+                                updateHUDSpritesC();
+
+                           }
+                           //menu_3
+                             function  menu3( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+
+                                var width = material.map.image.width;
+                                var height = material.map.image.height;
+
+
+                              spriteC = new THREE.Sprite( material );
+                                 spriteC.center.set( -0.5, 0.5);
+                                spriteC.scale.set( width, height, 1 );
+                               //sceneOrtho.add( spriteC );
+                                 menu_3.push(spriteC);
+                               updateHUDSpritesC();
+                           }
+                            function  menu3add( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+
+                                var width = material.map.image.width;
+                                var height = material.map.image.height;
+
+
+                              spriteC = new THREE.Sprite( material );
+                                 spriteC.center.set( -3.7, 1.6);
+                                 spriteC.scale.set( width*2, height*2, 1 );
+                               //sceneOrtho.add( spriteC );
+                                 menu_3.push(spriteC);
+                               updateHUDSpritesC();
+                           }
+                            function  menu3canel( texture ) {
+                               var material = new THREE.SpriteMaterial( { map: texture } );
+
+                                var width = material.map.image.width;
+                                var height = material.map.image.height;
+
+
+                              spriteC = new THREE.Sprite( material );
+                                spriteC.center.set( -5.5, 1.6);
+                                spriteC.scale.set( width*2, height*2, 1 );
+                               //sceneOrtho.add( spriteC );
+                                 menu_3.push(spriteC);
+                               updateHUDSpritesC();
+                           }
+
+
+			function updateHUDSprites() {
+
+				var width = window.innerWidth / 2;
+				var height = window.innerHeight / 2;
+
+				spriteTL.position.set( - width, height, 1 ); // top left
+				spriteTR.position.set( width, height, 1 ); // top right
+				spriteBL.position.set( - width, - height, 1 ); // bottom left
+				spriteBR.position.set( width, - height, 1 ); // bottom right
+				spriteC.position.set( 0, 0, 1 ); // center
+
+			}
+			function updateHUDSpritesTR() {
+
+				var width = window.innerWidth / 2;
+				var height = window.innerHeight / 2;
+
+
+				spriteTR.position.set( width, height, 1 ); // top right
+
+
+			}
+
+            	function updateHUDSpritesC() {
+                        var width = window.innerWidth / 2;
+                        var height = window.innerHeight / 2;
+                        spriteC.position.set( 0, 0, 1 ); // center
+            	}
+            function updateHUDSpriteTL(){
+                 var width = window.innerWidth / 2;
+				var height = window.innerHeight / 2;
+
+				spriteTL.position.set( - width, height, 1 ); // top left
+            }
+              function updateHUDSpriteXP(){
+                 var width = window.innerWidth / 2;
+				var height = window.innerHeight / 2;
+
+				spriteBL.position.set( - width, - height, 1 ); // bottom left
+            }
+			function onWindowResize() {
+
+				var width = window.innerWidth;
+				var height = window.innerHeight;
+
+				camera.aspect = width / height;
+				camera.updateProjectionMatrix();
+
+				cameraOrtho.left = - width / 2;
+				cameraOrtho.right = width / 2;
+				cameraOrtho.top = height / 2;
+				cameraOrtho.bottom = - height / 2;
+				cameraOrtho.updateProjectionMatrix();
+
+				updateHUDSprites();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+		        	}
+             function onDocumentMouseDown( event ){
 
                                     event.preventDefault();
 
@@ -243,188 +470,61 @@
                                                 switch(res.object){
 
                                                     case (menu_1[0]):
-                                                         console.log("menu");
-                                                selectedObject = res.object;
-
-                                             var spriteMap = new THREE.TextureLoader().load( 'textures/XX.png' );
-                                             var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                             var sprite = new THREE.Sprite( spriteMaterial );
-                                             sprite.position.set( -1, -1, 1 );
-                                             //sprite.rotation.y = +10;
-                                             sprite.center.set( 2.3, 0.77 );
-                                             sprite.scale.set( 10, 13, 1 );
-
-                                             menu_1.push(sprite);
-                                             scene.add( menu_1[1] );
-
-                                               var spriteMap = new THREE.TextureLoader().load( 'textures/ik_1.png' );
-                                                    var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                    var sprite = new THREE.Sprite( spriteMaterial );
-                                                    sprite.position.set( 0, 0, 0 );
-                                                    sprite.center.set( 12.1,1.5 );
-                                                    sprite.scale.set(2, 2, 1);
-                                                        menu_1.push(sprite);
-                                                        scene.add( menu_1[2] );//->menu 2
-                                                        group_1.add( sprite );
-
-                                                        write("Dhtmlx",355,95,"white");//400
-                                                    //
-                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_4.png' );
-                                                    var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                    var sprite = new THREE.Sprite( spriteMaterial );
-                                                    sprite.position.set( 0, 0, 0 );
-                                                    sprite.center.set( 8.62,1.7 );
-                                                    sprite.scale.set(3, 3, 1);
-                                                     menu_1.push(sprite);
-                                                     scene.add( menu_1[3] );
-                                                     //
-                                                      write("winrar",379,95,"white");
-                                                    //
-                                                    var spriteMap = new THREE.TextureLoader().load( 'textures/sprite0_3.png' );
-                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                     var sprite = new THREE.Sprite( spriteMaterial );
-                                                     sprite.position.set( 0, 0, 0 );
-                                                     sprite.center.set( 8.3,1.8 );
-                                                     sprite.scale.set( 3, 3, 1);
-                                                      menu_1.push(sprite);
-                                                        scene.add( menu_1[4]);
-                                                         write("words",403,95,"white");
-                                                      //user
-                                                        var spriteMap = new THREE.TextureLoader().load( 'textures/user_1.png' );
-                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                     var sprite = new THREE.Sprite( spriteMaterial );
-                                                     sprite.position.set( 0, 0, 0 );
-                                                     sprite.center.set( 3.35,0.5 );
-                                                     sprite.scale.set( 8, 4, 7);
-                                                      menu_1.push(sprite);
-                                                        scene.add( menu_1[5]);
-                                                        write("User",310,120,"white");
-
+                                                         console.log("open menu 1");
+                                                         console.log(text[0]);
+                                                         //text[0].style.hidde=true;
+                                                        //     group.add( sprite );
+                                                          scene.add( menu_1[1] );
+                                                          scene.add( menu_1[2]);
+                                                            write("Dhtmlx",435,80,"white");
+                                                          group_1.add(menu_1[2]);///
+                                                          scene.add( menu_1[3] );
+                                                            write("Winrar",368,80,"white");
+                                                          scene.add( menu_1[4] );
+                                                             write("Words",400,80,"white");
+                                                          scene.add( menu_1[5] );//user
+                                                            write("User",308,130,"white");//style //new sprite!!!
+                                                             //scene.remove(text[0]);
                                                     ; break;
 
                                                     case(menu_1[2]): //menu_2
-                                                     scene.remove( menu_1[1] );
-                                                    scene.remove( menu_1[2] );
-                                                    console.log(menu_1[2]);
-                                                    delete menu_1[2];
-                                                    console.log(menu_1[2]);
-                                                 //   scene.remove( menu_1[2] );
-                                                    scene.remove( menu_1[3] );
-                                                    scene.remove( menu_1[4] );
-                                                    scene.remove( menu_1[5] );
-                                                     text[3].style.color="white";
-                                                         write("Вам нужно нажать кнопку Добавить ,что бы появилось новое меню ",490,390,"black");
+                                                     text[0].style.visibility="hidden";
+                                                      write("Вам нужно нажать кнопку Добавить ,что бы появилось новое меню ",550,300,"black");
+                                                     console.log("open menu 2");
+                                                      scene.remove( menu_1[1] );
+                                                      scene.remove( menu_1[2] );
+                                                      scene.remove( menu_1[3] );
+                                                      scene.remove( menu_1[4] );
+                                                      scene.remove( menu_1[5] );
 
-                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/windows_edit_1.png' );
-                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                     var sprite = new THREE.Sprite( spriteMaterial );
-                                                     sprite.position.set( 1, 1, 1 );
-                                                     sprite.center.set( 0.9, 0.5 );
-                                                     sprite.scale.set( 25, 20, 1 );
+                                                      scene.add(menu_2[0]);
+                                                      //text
+                                                         write("Списко Пользователей",180,585,0xffffff);
+                                                   write("№",220,440,0xffffff);write("Имя",220,650,0xffffff);write("Телефон",220,820,0xffffff);//static pole
+                                                    write("1",250,440,0xffffff);write("Иван Иван",250,600,0xffffff);write("111",250,820);
+                                                    write("2",280,440,0xffffff);write("Пертов Петров",280,600,0xffffff);write("222",280,820,0xffffff);
+                                                    write("3",310,440,0xffffff);write("Семен Семен",310,600,0xffffff);write("333",310,820,0xffffff);
 
-                                                     menu_2.push(sprite);
-                                                     scene.add( menu_2[1] );
-
-                                                     //button add
-                                                      var spriteMap = new THREE.TextureLoader().load( 'textures/add_add.png' );
-                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                     var sprite = new THREE.Sprite( spriteMaterial );
-                                                     sprite.position.set( 1, 1, 1 );
-                                                     sprite.center.set( 5.7, 2 );
-                                                     sprite.scale.set( 3, 3, 1 );
-                                                     menu_2.push(sprite);
-                                                     scene.add( menu_2[2] );
-                                                      group_1.add( sprite );
-                                                      //save
-                                                      var spriteMap = new THREE.TextureLoader().load( 'textures/Edit.png' );
-                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                     var sprite = new THREE.Sprite( spriteMaterial );
-                                                     sprite.position.set( 1, 1, 1 );
-                                                     sprite.center.set( 4.5, 1.99 );
-                                                     sprite.scale.set(3, 3, 1 );
-                                                     menu_2.push(sprite);
-                                                     scene.add( menu_2[3] );
-                                                      group.add( sprite );
-                                                      //Edit
-                                                       var spriteMap = new THREE.TextureLoader().load( 'textures/delet.png' );
-                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                     var sprite = new THREE.Sprite( spriteMaterial );
-                                                     sprite.position.set( 1, 1, 1 );
-                                                     sprite.center.set( 3.3, 2 );
-                                                     sprite.scale.set(3, 3, 1 );
-                                                     menu_2.push(sprite);
-                                                     scene.add( menu_2[4]);
-                                                      group.add( sprite );
-                                                     //button exit
-                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/Exit.png' );
-                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                     var sprite = new THREE.Sprite( spriteMaterial );
-                                                     sprite.position.set( 1, 1, 1 );
-                                                     sprite.center.set( 2.1, 2 );
-                                                     sprite.scale.set(3, 3, 1 );
-                                                     menu_2.push(sprite);
-                                                     scene.add( menu_2[5] );
-                                                      group_1.add( sprite );
-
-
-
-
-
-                                                      //load Text.......create Map!!!!! sort delet.......
-                                                       write("Списко Пользователей",180,340,0xffffff);/// Map id: name :number
-                                                    write("№",200,220,0xffffff);write("имя",200,260,0xffffff);write("Телефон",200,370,0xffffff);//static pole
-                                                    write("1",230,220,0xffffff);write("Иван Иван",230,260,0xffffff);write("111",230,370);
-                                                    write("2",260,220,0xffffff);write("Пертов Петров",260,260,0xffffff);write("222",260,370,0xffffff);
-                                                    write("3",290,220,0xffffff);write("Семен Семен",290,260,0xffffff);write("333",290,370,0xffffff);
-                                                     ///writen  massin
-
-
+                                                      scene.add(menu_2[1]);
+                                                      group_1.add(menu_2[1]);//
+                                                      scene.add(menu_2[2]);
+                                                      scene.add(menu_2[3]);
+                                                      scene.add(menu_2[4]);
 
                                                     break;
-                                                    case(menu_2[2])://new menu_3 no edit
-                                                      //menu
-                                                      text[8].style.color="white";
-                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/windows_edit_3.png' );
-                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                     var sprite = new THREE.Sprite( spriteMaterial );
-                                                     sprite.position.set( 1, 1, 1 );
-                                                     sprite.center.set( 0.04, 0 );
-                                                     sprite.scale.set( 12, 10, 1 );
-                                                        menu_3.push(sprite);
-                                                     scene.add( menu_3[0] );
-                                                        //button
-                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/add_save.png' );
-                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                     var sprite = new THREE.Sprite( spriteMaterial );
-                                                     sprite.position.set( 1, 1, 1 );
-                                                     sprite.center.set( -0.5, 0.15 );
-                                                     sprite.scale.set( 3, 3, 1 );
-                                                        menu_3.push(sprite);
+                                                    case(menu_2[1])://new menu_3 no edit
+                                                      console.log("open menu 3");
+                                                      //  text[8].style.color="white";
+                                                         text[8].style.visibility="hidden";
+                                                      //menu _3
+                                                      scene.add(menu_3[0]);
                                                       scene.add(menu_3[1]);
-                                                      group.add( sprite );
-                                                      //button
-                                                     var spriteMap = new THREE.TextureLoader().load( 'textures/canel.png' );
-                                                     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                                                     var sprite = new THREE.Sprite( spriteMaterial );
-                                                     sprite.position.set( 1, 1, 1 );
-                                                     sprite.center.set( -1.9, 0.15 );
-                                                     sprite.scale.set(3, 3, 1 );
-                                                        menu_3.push(sprite);
+                                                      group_1.add(menu_3[1]);
                                                       scene.add(menu_3[2]);
-                                                      group.add( sprite );
-
-                                                         write("Добавить Пользователя",40,750,"black");
-                                                         write("Имя",85,740,"black");
-                                                         write("Телефон",140,740,"black");
-                                                        var input = document.createElement("INPUT") // create a new element
-                                                        input.setAttribute("type","text");
-                                                        input.setAttribute("value","|");
-                                                        input.style.position='absolute';
-                                                         input.style.width=50;
-                                                         input.style.height=50;
-                                                         input.style.top=100+'px';
-                                                         input.style.left=740+'px';
-                                                        document.body.appendChild(input);
+                                                      group_1.add(menu_3[2]);
+                                                       write("Добавить Пользователя",190,1060,"black");
+                                                         write("Имя",220,1040,"black");
+                                                         write("Телефон",280,1040,"black");
 
                                                         var input = document.createElement("INPUT") // create a new element
                                                         input.setAttribute("type","text");
@@ -432,10 +532,18 @@
                                                         input.style.position='absolute';
                                                          input.style.width=50;
                                                          input.style.height=50;
-                                                         input.style.top=160+'px';
-                                                         input.style.left=740+'px';
+                                                         input.style.top=240+'px';
+                                                         input.style.left=1040+'px';
                                                         document.body.appendChild(input);
-
+                                                         var input = document.createElement("INPUT") // create a new element
+                                                        input.setAttribute("type","text");
+                                                        input.setAttribute("value","|");
+                                                        input.style.position='absolute';
+                                                         input.style.width=50;
+                                                         input.style.height=50;
+                                                         input.style.top=300+'px';
+                                                         input.style.left=1040+'px';
+                                                        document.body.appendChild(input);
                                                     ; break;
 
                                                     case(menu_2[3]): console.log("X"); break;
@@ -463,15 +571,40 @@
                                                                 }
                                                             }
 
-                                                    case (menu_3[2]): console.log("exit"); break;
+                                                    case (menu_3[2]): console.log("exit")
+                                                        scene.remove( menu_3[0] );
+                                                      scene.remove( menu_3[1] );
+                                                      scene.remove( menu_3[2] );
+                                                      text[9].style.visibility="hidden";
+                                                      text[10].style.visibility="hidden";
+                                                      text[11].style.visibility="hidden";
+                                                    ; break;
                                                 }
                                         }
 
                                     }
                                     animate();
                                 }
+			function animate() {
 
-                var raycaster = new THREE.Raycaster();
+				requestAnimationFrame( animate );
+				render();
+
+			}
+
+			function render() {
+
+				var time = Date.now() / 1000;
+
+
+
+				renderer.clear();
+				renderer.render( scene, camera );
+				renderer.clearDepth();
+				renderer.render( sceneOrtho, cameraOrtho );
+
+			}
+			 var raycaster = new THREE.Raycaster();
                 var mouseVector = new THREE.Vector3();
 
                 function getIntersects( x, y ) {
@@ -484,7 +617,11 @@
 
                     return raycaster.intersectObject( group_1, true );//
                 }
-                function write(string,x,y,color){
+
+
+
+
+                             function write(string,x,y,color){
                     i++;
                    var text2=document.createElement('div');
                     text2.style.position='absolute';
@@ -501,7 +638,7 @@
                      console.log(text);
                   // removedElement(text[1]);
                 }
-                function makeTextSprite(message,parameters){
+                 function makeTextSprite(message,parameters,x,y){
                     if(parameters==undefined) parameters={};
 
                     var fontface=parameters.hasOwnProperty("fontface") ? parameters["fontface"]:"Arial";
@@ -513,40 +650,64 @@
 
                     var canvas=document.createElement('canvas');
                     var context=canvas.getContext('2d');
-                    context.font="Bold " +fontsize + "px " +fontface;
+
+                     context.font = "Bold " + fontsize + "px " + fontface;
+                   context.setTransform(1,0,0,-1,0,canvas.height);
+                   // context.fillRect(70, 0, 100, 30);
                     var metrics=context.measureText(message);
                     var textWidth=metrics.width;
 
                     context.fillStyle ="rgba("+backgroundColor.r +"," +backgroundColor.g +"," +backgroundColor.b +"," +backgroundColor.a +")";
                     context.strokeStyle="rgba(" +borderColor.r + "," +borderColor.g + "," + borderColor.b + "," +borderColor.r + ")";
 
-                    context.lineWidth=borderThickness;
-                    roundRect(context,borderThickness/2,borderThickness/2,(textWidth +borderThickness )*1.1,fontsize *1.4+ borderThickness,8);
+                  //  context.lineWidth=borderThickness;
+                  //  roundRect(context,borderThickness/2,borderThickness/2,(textWidth +borderThickness )*1.1,fontsize *1.4+ borderThickness,8);
 
-                    context.fillStyle="rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
-                    context.strokeStyle="rgba(" + borderColor.r + ","+ borderColor.g + ","+ borderColor.b + ","+ borderColor.a + ")" ;
+                  //  context.fillStyle="rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+                  //  context.strokeStyle="rgba(" + borderColor.r + ","+ borderColor.g + ","+ borderColor.b + ","+ borderColor.a + ")" ;
 
-                    context.lineWidth=borderThickness;
-                    roundRect(context,borderThickness/2,borderThickness/2,(textWidth + borderThickness)*1.1,fontsize *1.4 +borderThickness, 8);
+                  //  context.lineWidth=borderThickness;
+                   // roundRect(context,borderThickness/2,borderThickness/2,(textWidth + borderThickness)*1.1,fontsize *1.4 +borderThickness, 8);
 
                     context.fillStyle="rgba(" + textColor.r +","+ textColor.g +","+ textColor.b +",1.0)";
-                    context.filleText(message,borderThickness,fontsize +borderThickness);
+                    context.fillText( message, borderThickness, fontsize + borderThickness);
 
                     var texture =new THREE.Texture(canvas);
                     texture.needsUpdate=true;
 
+
                     var spriteMaterial=new THREE.SpriteMaterial({map:texture,useScreenCoordinates:false});
                     var sprite =new THREE.Sprite(spriteMaterial);
-                    sprite.scale.set(0.5*fontsize,0.25*fontsize,0.75 * fontsize);
 
+                    var width = spriteMaterial.map.image.width;
+                    var height = spriteMaterial.map.image.height;
+
+
+                    sprite.center.set( x,y );
+                    sprite.scale.set( width, height, 1 );
+
+                      var width = window.innerWidth / 2;
+			    	    var height = window.innerHeight / 2;
+
+				     sprite.position.set( - width, height, 1 );//tl
                     return sprite;
                 }
-                function removeElement(elementId) {
-                    // Removes an element from the document
-                    var element = document.getElementById(elementId);
-                    element.parentNode.removeChild(element);
-                }
-
-        </script>
+                function roundRect(ctx, x, y, w, h, r)
+                            {
+                                ctx.beginPath();
+                                ctx.moveTo(x+r, y);
+                                ctx.lineTo(x+w-r, y);
+                                ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+                                ctx.lineTo(x+w, y+h-r);
+                                ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+                                ctx.lineTo(x+r, y+h);
+                                ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+                                ctx.lineTo(x, y+r);
+                                ctx.quadraticCurveTo(x, y, x+r, y);
+                                ctx.closePath();
+                                ctx.fill();
+                                ctx.stroke();
+                            }
+		</script>
 </body>
 </html>
