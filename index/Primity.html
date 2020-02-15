@@ -45,9 +45,9 @@
 			var mesh, geometry,object=[];
             var x,y,z;
 			var geometries = [
-				new THREE.BoxBufferGeometry( 100, 100, 100, 1, 1, 1 ),
+				new THREE.BoxBufferGeometry( 1, 1, 1, 0, 0, 0),
 
-				new THREE.PlaneBufferGeometry( 300, 200, 1, 1 )
+				new THREE.PlaneBufferGeometry( 10, 10, 1, 1 )
 
 			];
 
@@ -55,13 +55,13 @@
 				Geometry: 0
 			};
 
-			var material = new THREE.MeshBasicMaterial( { color: 0xfefefe, wireframe: true, opacity: 0.5 } );
+			var material = new THREE.MeshBasicMaterial( { color: 0xfefefe, wireframe: true, opacity: 0.1 } );
 
 			init();
 			animate();
 
 			function addMesh() {
-
+                options.Geometry=1;
 
 				geometry = geometries[ options.Geometry ];
 
@@ -78,16 +78,17 @@
 				object.push(mesh);
                 object[0].position.set(-290,-170,0);
                 x=new THREE.AxesHelper( 300 );
-                x.position.set((object[0].position.x)-90,(object[0].position.y)-90,(object[0].position.z)-89);
-                scene.add( x );
+               // x.position.set((object[0].position.x)-90,(object[0].position.y)-90,(object[0].position.z)-89);
+               x.position.set((object[0].position.x)-90,(object[0].position.y)-90,(object[0].position.z));
+               // scene.add( x );
 				scene.add( object[0] );
-                group.add( object[0] );
-                group.add( x );
+               group.add( object[0] );
+              //  group.add( x );
 
 
 			}
             function addBox() {
-
+                options.Geometry=0;
 				geometry = geometries[ options.Geometry ];
 				geometry.computeBoundingSphere();
 
@@ -96,13 +97,13 @@
 				geometry.scale( scaleFactor, scaleFactor, scaleFactor );
                 //geometry.center.set( -3.7, 1.6);
 
-				mesh = new THREE.Mesh( geometry, material );
+				mesh = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: "black", wireframe: false, opacity: 0.1 } ) );
 				object.push(mesh);
-                object[1].position.set(randomInt( -100, 100),90,0);
-                object[1].rotation.set(-1,0,0);
-
+                object[1].position.set(randomInt( -100, 100),randomInt( -100, 100),-1000);
+                object[1].rotation.set(0,0,0);
+               // object[1].scale.set(-1,-1,-1);
 				scene.add( object[1] );
-                  group.add( object[1] );
+                //  group.add( object[1] );
 
 			}
 			 function addPlanet() {
@@ -114,11 +115,11 @@
 			    console.log(geometry);
 				geometry.scale( scaleFactor, scaleFactor, scaleFactor );
 
-				mesh = new THREE.Mesh( geometry, material );
+				mesh = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: 0xfefefe, wireframe: false, opacity: 0.1 } ) );
 				object.push(mesh);
-                object[2].position.set(0,00,-300);
+                object[2].position.set(0,00,-2000);
 
-               object[2].scale.set(6,6,0);
+               object[2].scale.set(4,4,0);
 				scene.add( object[2] );
 
 			}
@@ -126,7 +127,7 @@
 
 				container = document.getElementById( 'container' );
 
-				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 10000 );
 				camera.position.z = 500;
 
 				scene = new THREE.Scene();
