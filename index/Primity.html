@@ -46,7 +46,7 @@
             var x,y,z;
 			var geometries = [
 				new THREE.BoxBufferGeometry( 100, 100, 100, 1, 1, 1 ),
-
+                new THREE.BoxBufferGeometry( 10, 10, 0, 1, 1, 1 ),
 				new THREE.PlaneBufferGeometry( 300, 200, 1, 1 )
 
 			];
@@ -76,18 +76,20 @@
 
 				mesh = new THREE.Mesh( geometry, material );///
 				object.push(mesh);
-                object[0].position.set(-290,-170,0);
+                object[0].position.set(-100,200,-250);
+                 object[0].rotation.set(0.09,2.89,0);
                 x=new THREE.AxesHelper( 300 );
-                x.position.set((object[0].position.x)-90,(object[0].position.y)-90,(object[0].position.z)-89);
-                scene.add( x );
+                x.position.set((object[0].position.x)-70,(object[0].position.y)-90,(object[0].position.z)-89);
+               // scene.add( x );
 				scene.add( object[0] );
-                group.add( object[0] );
-                group.add( x );
+
+             //   group.add( object[0] );
+             //   group.add( x );
 
 
 			}
             function addBox() {
-
+                 options.Geometry=1;
 				geometry = geometries[ options.Geometry ];
 				geometry.computeBoundingSphere();
 
@@ -96,17 +98,17 @@
 				geometry.scale( scaleFactor, scaleFactor, scaleFactor );
                 //geometry.center.set( -3.7, 1.6);
 
-				mesh = new THREE.Mesh( geometry, material );
+				mesh = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: "black", wireframe: false, opacity: 0.1 } ) );
 				object.push(mesh);
-                object[1].position.set(randomInt( -100, 100),90,0);
-                object[1].rotation.set(-1,0,0);
+                object[1].position.set(-700,-120,-180);
+                object[1].rotation.set(0,6,0);
 
 				scene.add( object[1] );
-                  group.add( object[1] );
+               //   group.add( object[1] );
 
 			}
 			 function addPlanet() {
-                options.Geometry=1;
+                options.Geometry=2;
 				geometry = geometries[ options.Geometry];
 
 				geometry.computeBoundingSphere();
@@ -114,11 +116,11 @@
 			    console.log(geometry);
 				geometry.scale( scaleFactor, scaleFactor, scaleFactor );
 
-				mesh = new THREE.Mesh( geometry, material );
+				mesh = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: 0xfefefe, wireframe: false, opacity: 0.1 } ) );
 				object.push(mesh);
-                object[2].position.set(0,00,-300);
-
-               object[2].scale.set(6,6,0);
+                object[2].position.set(-800,-100,-200);
+                object[2].rotation.set(0,6,0);
+                object[2].scale.set(3,3,0);
 				scene.add( object[2] );
 
 			}
